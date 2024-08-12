@@ -133,6 +133,45 @@
           language == "id" ? y.setAttribute("oninvalid", `this.setCustomValidity('Minimum ${mincontext} karakter')`) : y.setAttribute("oninvalid", `this.setCustomValidity('${mincontext} characters minimum')`)
           y.setAttribute("oninput", "setCustomValidity('')");
         } 
+
+        var customValidityMessages = {
+            'id': {
+                'name': 'Kolom ini wajib diisi.',
+                'mobile': 'Kolom ini wajib diisi.',
+                'email': 'Kolom ini wajib diisi.',
+            },
+            'en': {
+                'name': 'Please fill in this field.',
+                'mobile': 'Please fill in this field.',
+                'email': 'Please fill in this field.',
+            }
+        };
+
+        // Function to set custom validity messages based on the language
+        function setCustomValidityMessages() {
+            document.getElementById('name').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['name']);
+            };
+            document.getElementById('name').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+
+            document.getElementById('mobile').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['email']);
+            };
+            document.getElementById('mobile').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+
+            document.getElementById('email').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['email']);
+            };
+            document.getElementById('email').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+        }
+        // Call the function to apply the custom messages
+        setCustomValidityMessages();
         
         if (language == 'id') {
           document.getElementById('name').placeholder = 'Masukkan nama kamu';
