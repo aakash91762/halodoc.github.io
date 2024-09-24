@@ -1,0 +1,406 @@
+<Html>
+
+</Html>
+
+<head>
+    <title>
+
+    </title>
+</head>
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+<body style="background-color:#EEEEEE; ">
+    <style>
+        body {
+            font-family: 'Inter';
+        }
+
+        input {
+            height: 2em;
+            width: 20em;
+            vertical-align: middle;
+        }
+
+        label {
+            color: black;
+        }
+
+        p {
+            text-align: justify
+        }
+
+        .container {
+            width: 95%;
+            background-color: #EEEEEE;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .input {
+            margin: 5px 0px;
+            padding: 15px 10px;
+            border: none;
+            border: none;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 5px;
+            border: 1px solid #EEEEEE;
+            outline: 0;
+            height: 25px;
+            width: 100%;
+            font-size: 12px;
+        }
+
+        .custom-select {
+            margin: 5px 0px;
+            padding: 5px 10px;
+            /* border: none; */
+            border-radius: 5px;
+            border: 1px solid #EEEEEE;
+            /* outline: 0; */
+            height: 30px;
+            width: 100%;
+            font-size: 12px;
+            font-family: 'Inter';
+        }
+
+        .custom-select:focus {
+            border: 1px solid #DD0150;
+        }
+
+        .input:focus {
+            border: 1px solid #DD0150;
+        }
+
+        .submit {
+            background-color: #DD0150;
+            padding: 15px 15px 15px 15px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            color: white;
+            height: 45px;
+        }
+
+        .submit:hover {
+            background-color: #f74586;
+        }
+
+        .result {
+            font-weight: bold;
+            margin: 10px 0px 20px;
+        }
+    </style>
+    <center>
+
+
+        <div class="container">
+            <label id="header"></label> <br>
+            <br>
+
+            <form>
+                <label id="lname"></label> <Br>
+                <input class="input" id="name" value="" name="name" size="15" required />
+                <div id="rname" class="result"></div>
+                <label id="lmobile"></label> <Br>
+                <input class="input" id="mobile" type="tel"
+                    pattern="(\+62 ((\d{3}([ -]\d{3,})([- ]\d{4,})?)|(\d+)))|(\(\d+\) \d+)|\d{3}( \d+)+|(\d+[ -]\d+)|\d+"
+                    name="mobile" size="15" value="" required />
+                <div id="rmobile" class="result"></div>
+
+                <label id="ldob"></label> <Br>
+                <input class="input" type="date" id="dob" value="" name="dob" placeholder="" required />
+                <div id="rdob" class="result"></div>
+
+                <label id="lservice"></label><br>
+                <select class="custom-select" id="service" name="service" required>
+                    <!-- <option class="select-opt" id="opt-1">test</option> -->
+                    <!--<option class="select-opt" id="opt-2"></option>
+                    <option class="select-opt" id="opt-3"></option>
+                    <option class="select-opt" id="opt-4"></option>
+                    <option class="select-opt" id="opt-5"></option> -->
+                </select>
+                <div id="rservice" class="result"></div>
+
+                <label id="ltransaction"></label><br>
+                <select class="custom-select" id="transaction" name="transaction" required>
+                    <!-- <option class="select-opt" id="opt-1">test</option> -->
+                    <!--<option class="select-opt" id="opt-2"></option>
+                    <option class="select-opt" id="opt-3"></option>
+                    <option class="select-opt" id="opt-4"></option>
+                    <option class="select-opt" id="opt-5"></option> -->
+                </select>
+                <div id="rtransaction" class="result"></div>
+
+
+                <label id="lemail"></label> <Br>
+                <input class="input" id="email" type="email" value="" name="email" size="15" required />
+                <div id="remail" class="result"></div>
+
+
+                <label id="lcontext"></label><br>
+                <input class="input" id="context" type="text" name="context" value="" required />
+                <div id="rcontext" class="result"></div>
+
+
+                <input type="hidden" id="language" name="language" value="id" />
+                <input type="hidden" id="vcontext" name="lcontext" value="" />
+                <button id="submit" class="submit"></button>
+            </form>
+
+        </div>
+
+
+    </center>
+    <script type="text/javascript">
+
+        // $(document).ready(function () {
+        let params = new URLSearchParams(window.location.search)
+        // console.log(params.get('language'))
+        var name = params.get('name')
+        var lcontext = params.get('lcontext')
+        var language = params.get('language')
+        var mobile = params.get('mobile')
+        var email = params.get('email')
+        var dob = params.get('dob')
+        var context = params.get('context')
+        var mincontext = params.get('mincontext')
+        var service = params.get('service');
+        var transaction = params.get('transaction');
+        var trx = params.get('trx');
+        
+        console.log({ context, language });
+        document.getElementById('lcontext').innerHTML = lcontext;
+        let x = document.getElementById('vcontext');
+        let y = document.getElementById('context');
+        x.setAttribute("value", lcontext);
+        if (parseInt(mincontext)) {
+            y.setAttribute("minlength", `${mincontext}`);
+            language == "id" ? y.setAttribute("oninvalid", `this.setCustomValidity('Minimum ${mincontext} karakter')`) : y.setAttribute("oninvalid", `this.setCustomValidity('${mincontext} characters minimum')`)
+            y.setAttribute("oninput", "setCustomValidity('')");
+        }
+
+        // const sourceData = [
+        //     { service_code: "CD", transaction: "2024-04-12 xxxx-xxxxx" },
+        //     { service_code: "CD", transaction: "2024-04-15 zzzz-zzzzz" },
+        //     { service_code: "PD", transaction: "2024-09-20 tttt-ttttt" },
+        //     { service_code: "PD", transaction: "2024-09-23 yyyy-yyyyy" }
+        // ];
+        let sourceData = trx ? JSON.parse(atob(trx)) : []
+
+        // Map service_code to a custom text
+        const serviceCodeText = {
+            "CD": {
+                "id": "Chat dengan Dokter",
+                "en": "Chat with Doctor"
+            },
+            "PD": {
+                "id": "Toko Kesehatan",
+                "en": "Health Store"
+            },
+            "HOSPITAL": {
+                "id": "Buat Janji Offline",
+                "en": "Book Offline Appointment"
+            },
+            "LAB": {
+                "id": "Home Lab & Vaksinasi",
+                "en": "Home Lab & Vaccination"
+            }
+        };
+
+        // Populate the first dropdown
+        const serviceCodeSelect = document.getElementById('service');
+        serviceCodeSelect.innerHTML = `<option value="" disabled selected>${language == "id" ? "Pilih layanan" : "Select service"}</option>`;
+        sourceData.forEach(data => {
+            if (![...serviceCodeSelect.options].some(option => option.value === data.service_code)) {
+                const option = document.createElement('option');
+                option.value = data.service_code;
+                option.text = serviceCodeText[data.service_code][language ? language : "en"] || data.service_code;
+                serviceCodeSelect.appendChild(option);
+            }
+        });
+
+        // When the first dropdown changes, update the second dropdown
+        serviceCodeSelect.addEventListener('change', function() {
+            const selectedServiceCode = this.value;
+            const transactionSelect = document.getElementById('transaction');
+
+            // Clear previous transaction options
+            transactionSelect.innerHTML = `<option value="" disabled selected>${language == "id" ? "Pilih transaksi" : "Select transaction"}</option>`;
+
+            // Populate the second dropdown with transactions related to the selected service_code
+            sourceData.forEach(data => {
+                if (data.service_code === selectedServiceCode) {
+                    const option = document.createElement('option');
+                    option.value = data.transaction;
+                    option.text = data.transaction;
+                    transactionSelect.appendChild(option);
+                }
+            });
+        });
+
+        var customValidityMessages = {
+            'id': {
+                'name': 'Kolom ini wajib diisi.',
+                'mobile': 'Kolom ini wajib diisi.',
+                'email': 'Kolom ini wajib diisi.',
+                'dob': 'Kolom ini wajib diisi.'
+            },
+            'en': {
+                'name': 'Please fill in this field.',
+                'mobile': 'Please fill in this field.',
+                'email': 'Please fill in this field.',
+                'dob': 'Please fill in this field.'
+            }
+        };
+
+        // Function to set custom validity messages based on the language
+        function setCustomValidityMessages() {
+            document.getElementById('name').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['name']);
+            };
+            document.getElementById('name').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+
+            document.getElementById('mobile').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['email']);
+            };
+            document.getElementById('mobile').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+
+            document.getElementById('email').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['email']);
+            };
+            document.getElementById('email').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+
+            document.getElementById('dob').oninvalid = function () {
+                this.setCustomValidity(customValidityMessages[language]['dob']);
+            };
+            document.getElementById('dob').oninput = function () {
+                this.setCustomValidity(''); // Clear custom validity message when input changes
+            };
+        }
+        // Call the function to apply the custom messages
+        setCustomValidityMessages();
+
+        if (language == 'id') {
+            document.getElementById('name').placeholder = 'Masukkan nama kamu';
+            document.getElementById('mobile').placeholder = 'Masukkan nomor ponsel';
+            document.getElementById('email').placeholder = 'Masukkan alamat email';
+            document.getElementById('context').placeholder = 'Ketik detailnya di sini.';
+            document.getElementById('header').innerHTML = 'Mohon lengkapi informasi berikut. CS kami akan menghubungimu melalui email dalam 1 jam.';
+            document.getElementById('lmobile').innerHTML = 'Nomor Ponsel Terdaftar:';
+            document.getElementById('lname').innerHTML = 'Nama Kamu:';
+            document.getElementById('lemail').innerHTML = 'Alamat Email Aktif:';
+            document.getElementById('lcontext').innerHTML = 'Jelaskan Kendala:';
+            document.getElementById('ldob').innerHTML = 'Tanggal Lahir';
+            document.getElementById('dob').placeholder = 'Pilih tanggal lahir';
+            document.getElementById('lservice').innerHTML = "Layanan Terakhir";
+            document.getElementById('ltransaction').innerHTML = "Tanggal Transaksi Terakhir";
+
+            document.getElementById('submit').innerHTML = 'Kirim Laporan';
+            let x = document.getElementById('language');
+            x.setAttribute("value", "id");
+        } else {
+            document.getElementById('name').placeholder = 'Enter your name';
+            document.getElementById('mobile').placeholder = 'Enter mobile number';
+            document.getElementById('email').placeholder = 'Enter email ID';
+            document.getElementById('context').placeholder = 'Type the details here.';
+            document.getElementById('header').innerHTML = 'Please share the information <br> below and our Customer Support will get back to you via email within 1 hour.';
+            document.getElementById('lname').innerHTML = 'Your Name:';
+            document.getElementById('lmobile').innerHTML = 'Registered Mobile Number:';
+            document.getElementById('lemail').innerHTML = 'Active Email ID:';
+            document.getElementById('lcontext').innerHTML = 'Describe the Issue:';
+            document.getElementById('ldob').innerHTML = 'Date of Birth';
+            document.getElementById('dob').placeholder = 'Select Date of Birth';
+            document.getElementById('lservice').innerHTML = "Last Used Service";
+            document.getElementById('ltransaction').innerHTML = "Last Transaction Date";
+
+            document.getElementById('submit').innerHTML = 'Submit Ticket';
+            let x = document.getElementById('language');
+            x.setAttribute("value", "en");
+        }
+
+        if (mobile && email && context) {
+            let n = document.getElementById('name');
+            let m = document.getElementById('mobile');
+            let e = document.getElementById('email');
+            let c = document.getElementById('context');
+            let s = document.getElementById('submit');
+            let d = document.getElementById('dob');
+            let svc = document.getElementById('service');
+            let trx = document.getElementById('transaction');
+            n.setAttribute("type", "hidden");
+            m.setAttribute("type", "hidden");
+            e.setAttribute("type", "hidden");
+            c.setAttribute("type", "hidden");
+            s.setAttribute("type", "hidden");
+            d.setAttribute("type", "hidden");
+            svc.hidden = true;
+            trx.hidden = true;
+            s.style.visibility = "hidden";
+            document.getElementById('rname').innerHTML = name;
+            document.getElementById('rmobile').innerHTML = mobile;
+            document.getElementById('remail').innerHTML = email;
+            document.getElementById('rcontext').innerHTML = context;
+            document.getElementById('rdob').innerHTML = dob
+            document.getElementById('rservice').innerHTML = serviceCodeText[service][language ? language : "en"]
+            document.getElementById('rtransaction').innerHTML = transaction
+            n.setAttribute("value", name);
+            m.setAttribute("value", mobile);
+            e.setAttribute("value", email);
+            c.setAttribute("value", context);
+            d.setAttribute("value", dob);
+            svc.setAttribute("value", service);
+            trx.setAttribute("value", transaction);
+            myFunction({ name, mobile, email, context, dob, service: serviceCodeText[service][language ? language : "en"], transaction })
+        }
+
+
+
+
+        // });
+        function myFunction(obj) {
+            var name = document.getElementById("name").value;
+            var mobile = document.getElementById("mobile").value;
+            var email = document.getElementById("email").value;
+            var context = document.getElementById("context").value;
+            console.log(obj)
+            //console.log(canvas+canvas1+canvas2+canvas3+canvas4)
+            let data = JSON.stringify(obj)
+            if (mobile && email && context) {
+                window.parent.postMessage(JSON.stringify({
+                    event_code: "ym-client-event",
+                    data: JSON.stringify({
+                        event: {
+                            code: new Date().getTime().toString(),
+                            data
+                        },
+                    }),
+                }), "*");
+
+                console.log(JSON.stringify({
+                    event_code: "ym-client-event",
+                    data: JSON.stringify({
+                        event: {
+                            code: new Date().getTime().toString(),
+                            data
+                        },
+                    }),
+                }))
+            }
+
+
+        };
+
+        // document.getElementById("submit").addEventListener("click", myFunction());
+
+
+    </script>
+</body>
