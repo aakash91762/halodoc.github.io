@@ -126,6 +126,7 @@
 
                 <label id="ltransaction"></label><br>
                 <select class="custom-select" id="transaction" name="transaction" required>
+                    <option id="opt-1" value="" disabled selected></option>
                     <!-- <option class="select-opt" id="opt-1">test</option> -->
                     <!--<option class="select-opt" id="opt-2"></option>
                     <option class="select-opt" id="opt-3"></option>
@@ -182,13 +183,13 @@
             y.setAttribute("oninput", "setCustomValidity('')");
         }
 
-        // const sourceData = [
-        //     { service_code: "CD", transaction: "2024-04-12 xxxx-xxxxx" },
-        //     { service_code: "CD", transaction: "2024-04-15 zzzz-zzzzz" },
-        //     { service_code: "PD", transaction: "2024-09-20 tttt-ttttt" },
-        //     { service_code: "PD", transaction: "2024-09-23 yyyy-yyyyy" }
-        // ];
-        let sourceData = trx ? JSON.parse(atob(trx)) : []
+        const sourceData = [
+            { service_code: "CD", transaction: "2024-04-12 xxxx-xxxxx" },
+            { service_code: "CD", transaction: "2024-04-15 zzzz-zzzzz" },
+            { service_code: "PD", transaction: "2024-09-20 tttt-ttttt" },
+            { service_code: "PD", transaction: "2024-09-23 yyyy-yyyyy" }
+        ];
+        // let sourceData = trx ? JSON.parse(atob(trx)) : []
 
         // Map service_code to a custom text
         const serviceCodeText = {
@@ -228,7 +229,7 @@
             const transactionSelect = document.getElementById('transaction');
 
             // Clear previous transaction options
-            transactionSelect.innerHTML = `<option value="" disabled selected>${language == "id" ? "Pilih transaksi" : "Select transaction"}</option>`;
+            // transactionSelect.innerHTML = `<option value="" disabled selected>${language == "id" ? "Pilih transaksi" : "Select transaction"}</option>`;
 
             // Populate the second dropdown with transactions related to the selected service_code
             sourceData.forEach(data => {
@@ -303,6 +304,7 @@
             document.getElementById('dob').placeholder = 'Pilih tanggal lahir';
             document.getElementById('lservice').innerHTML = "Layanan Terakhir";
             document.getElementById('ltransaction').innerHTML = "Tanggal Transaksi Terakhir";
+            document.getElementById('opt-1').innerHTML = "Pilih Tanggal Transaksi Terakhir";
 
             document.getElementById('submit').innerHTML = 'Kirim Laporan';
             let x = document.getElementById('language');
@@ -321,6 +323,7 @@
             document.getElementById('dob').placeholder = 'Select Date of Birth';
             document.getElementById('lservice').innerHTML = "Last Used Service";
             document.getElementById('ltransaction').innerHTML = "Last Transaction Date";
+            document.getElementById('opt-1').innerHTML = "Select Last Transaction Date";
 
             document.getElementById('submit').innerHTML = 'Submit Ticket';
             let x = document.getElementById('language');
