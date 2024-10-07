@@ -111,7 +111,7 @@
                 <div id="rmobile" class="result"></div>
 
                 <label id="ldob"></label> <Br>
-                <input class="input" type="date" id="dob" value="" name="dob" placeholder="" required />
+                <input class="input" type="text" id="dob" value="" name="dob" placeholder="testing" required />
                 <div id="rdob" class="result"></div>
 
                 <label id="lservice"></label><br>
@@ -171,7 +171,7 @@
         var service = params.get('service');
         var transaction = params.get('transaction');
         var trx = params.get('trx');
-        
+
         console.log({ context, language });
         document.getElementById('lcontext').innerHTML = lcontext;
         let x = document.getElementById('vcontext');
@@ -181,6 +181,12 @@
             y.setAttribute("minlength", `${mincontext}`);
             language == "id" ? y.setAttribute("oninvalid", `this.setCustomValidity('Minimum ${mincontext} karakter')`) : y.setAttribute("oninvalid", `this.setCustomValidity('${mincontext} characters minimum')`)
             y.setAttribute("oninput", "setCustomValidity('')");
+        }
+
+        var textbox = document.getElementById('dob')
+        textbox.onfocus = function (event) {
+            this.type = 'date';
+            this.focus();
         }
 
         // const sourceData = [
@@ -224,7 +230,7 @@
         });
 
         // When the first dropdown changes, update the second dropdown
-        serviceCodeSelect.addEventListener('change', function() {
+        serviceCodeSelect.addEventListener('change', function () {
             const selectedServiceCode = this.value;
             const transactionSelect = document.getElementById('transaction');
 
