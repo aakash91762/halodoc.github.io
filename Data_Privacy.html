@@ -51,6 +51,14 @@
             font-size: 12px;
         }
 
+        #dob {
+            border: 1px solid grey;
+        }
+
+        #idob {
+            color: grey;
+        }
+
         .custom-select {
             margin: 5px 0px;
             padding: 5px 10px;
@@ -111,7 +119,8 @@
                 <div id="rmobile" class="result"></div>
 
                 <label id="ldob"></label> <Br>
-                <input class="input" type="text" id="dob" value="" name="dob" placeholder="testing" required />
+                <input class="input" type="date" id="dob" value="" name="dob" placeholder="" required />
+                <span id="idob"></span>
                 <div id="rdob" class="result"></div>
 
                 <label id="lservice"></label><br>
@@ -181,12 +190,6 @@
             y.setAttribute("minlength", `${mincontext}`);
             language == "id" ? y.setAttribute("oninvalid", `this.setCustomValidity('Minimum ${mincontext} karakter')`) : y.setAttribute("oninvalid", `this.setCustomValidity('${mincontext} characters minimum')`)
             y.setAttribute("oninput", "setCustomValidity('')");
-        }
-
-        var textbox = document.getElementById('dob')
-        textbox.onfocus = function (event) {
-            this.type = 'date';
-            this.focus();
         }
 
         // const sourceData = [
@@ -311,6 +314,7 @@
             document.getElementById('lservice').innerHTML = "Layanan Terakhir";
             document.getElementById('ltransaction').innerHTML = "Tanggal Transaksi Terakhir";
             document.getElementById('opt-1').innerHTML = "Pilih Tanggal Transaksi Terakhir";
+            document.getElementById('idob').innerHTML = "Klik bidang diatas untuk memilih tanggal lahir";
 
             document.getElementById('submit').innerHTML = 'Kirim Laporan';
             let x = document.getElementById('language');
@@ -330,6 +334,7 @@
             document.getElementById('lservice').innerHTML = "Last Used Service";
             document.getElementById('ltransaction').innerHTML = "Last Transaction Date";
             document.getElementById('opt-1').innerHTML = "Select Last Transaction Date";
+            document.getElementById('idob').innerHTML = "Click the field above to select your date of birth.";
 
             document.getElementById('submit').innerHTML = 'Submit Ticket';
             let x = document.getElementById('language');
@@ -343,6 +348,7 @@
             let c = document.getElementById('context');
             let s = document.getElementById('submit');
             let d = document.getElementById('dob');
+            let di = document.getElementById('idob');
             let svc = document.getElementById('service');
             let trx = document.getElementById('transaction');
             n.setAttribute("type", "hidden");
@@ -351,6 +357,7 @@
             c.setAttribute("type", "hidden");
             s.setAttribute("type", "hidden");
             d.setAttribute("type", "hidden");
+            di.setAttribute("type", "hidden");
             svc.hidden = true;
             trx.hidden = true;
             s.style.visibility = "hidden";
